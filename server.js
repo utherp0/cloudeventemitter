@@ -15,7 +15,7 @@ app.use( '/scripts', express.static('scripts'));
 app.use( '/styles', express.static('styles'));
 app.use( '/images', express.static('images'));
 
-app.use(bodyParser.url({extended: false }));
+app.use(bodyParser.urlencoded({extended: false }));
 app.use(bodyParser.json());
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
