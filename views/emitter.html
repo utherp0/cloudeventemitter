@@ -19,48 +19,29 @@
       }});
     }
 
-    var form = $('emitdata');
-
-    form.submit( function (e)
+    function submitEmit()
     {
-      console.log( "In submit...");
-      
+      console.log( "Attempting to submit emit request.");
+
       // Get and check data
       var broker = $("#broker").val();
       var cetype = $("#cetype").val();
       var payload = $("#payload").val();
 
-      console.log( "EMIT:");
+      console.log( "RAW:");
       console.log( "  " + broker );
       console.log( "  " + cetype );
       console.log( "  " + payload );
 
-      $.ajax({
-        type: form.attr('method'),
-        url: form.attr('action'),
-        data: form.serialize(),
-        success: function (data) {
-          console.log(data);
-          $("#status").val( "Emitted event to " + broker );
-        },
-        error: function (data) {
-          console.log( "Emit failed," + data);
-          $("#status").val( "Emit failed to broker " + broker );
-        },
-      });
-    });
+      broker = encodeURI(broker);
+      cetype = encodeURI(cetype);
+      payload = encodeURI(payload);
 
-    function dataFill()
-    {
-      $.ajax({url: "envs", success: function( result ) {
-        $("#requestStatus").html(result);
-      }});
-    }
+      // Build the url encoded
+      var targetURL = "emit?broker=" + broker + "&type=" + cetype + "&payload=" + payload;
 
-    function jsonCall()
-    {
-      $.ajax({url:"nasa", success: function(result) {
-        $("#jsonoutput").html(result);
+      $.ajax({url: targetURL, success: function(result) {
+        $("#status").val = "EMIT sent to server";
       }});
     }
 
@@ -81,17 +62,15 @@
 <body onload="initPage();">
 <div width="90%" padding="20px"><img src="/images/redhat.png" width="300px"/></div>
 
-<form id="emitdata" action="/emit" method="post">
 <div class="jumbotron">
   <h1>Cloud Event Emitter</h1>
   <b>Enter a target knative broker, Cloud Event Type and a payload:</b><br/>
   <input type="text" id="broker" style="width:100%"/><br/>
   <b>TYPE: </b><input type="text" id="cetype" style="width:400px"/><br>
   <textarea id="payload" rows="10" style="width:100%"></textarea><br>
-  <input type="button" value="Emit Cloud Event" onClick="submit()"/>
+  <input type="button" value="Emit Cloud Event" onClick="submitEmit()"/>
   <input type="text" id="status" style="width:100%" onFocus="this.blur();"/>
 </div>  
-</form>
 
 </body>
 </html>
