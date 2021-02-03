@@ -25,6 +25,10 @@ app.post('/emit', function (req,res)
   var cetype = req.query.cetype;
   var payload = req.query.payload;
 
+  console.log( "Type: " + cetype );
+  console.log( "Broker: " + broker );
+  console.log( "Payload: " + payload );
+
   const cloudevent = new CloudEvent({
     type: cetype,
     data: {
