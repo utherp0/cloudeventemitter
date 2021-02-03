@@ -25,9 +25,9 @@ var ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 app.get('/emit', function (req,res)
 {
   // Extract the parameters from the request
-  var broker = req.body.broker;
-  var cetype = req.body.cetype;
-  var payload = req.body.payload;
+  var broker = req.query.broker;
+  var cetype = req.query.cetype;
+  var payload = req.query.payload;
 
   broker = decodeURI(broker);
   cetype = decodeURI(cetype);
