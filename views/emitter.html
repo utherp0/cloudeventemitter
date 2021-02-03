@@ -1,0 +1,95 @@
+<html>
+<head>
+  <title>Cloud Event Emitter</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- CSS (load bootstrap from a CDN) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css">
+  
+  <style>
+    body { padding-top:20px; }
+  </style>
+
+  <script>
+
+    function initPage()
+    {
+      // Perform initialisation on any variable field
+      $.ajax({url: "broker", success: function( result ) {
+        $("#broker").val(result);
+      }});
+    }
+
+    var form = $('emitdata');
+
+    form.submit( function (e)
+    {
+      // Get and check data
+      var broker = $("#broker").val();
+      var cetype = $("#cetype").val();
+      var payload = $("#payload").val();
+
+      console.log( "EMIT:");
+      console.log( "  " + broker );
+      console.log( "  " + cetype );
+      console.log( "  " + payload );
+
+      $.ajax({
+        type: form.attr('method'),
+        url: form.attr('action'),
+        data: form.serialize(),
+        success: function (data) {
+          console.log(data);
+          $("#status").val( "Emitted event to " + broker );
+        },
+        error: function (data) {
+          console.log( "Emit failed," + data);
+          $("#status").val( "Emit failed to broker " + broker );
+        },
+      });
+    });
+
+    function dataFill()
+    {
+      $.ajax({url: "envs", success: function( result ) {
+        $("#requestStatus").html(result);
+      }});
+    }
+
+    function jsonCall()
+    {
+      $.ajax({url:"nasa", success: function(result) {
+        $("#jsonoutput").html(result);
+      }});
+    }
+
+    function reveal( targetName )
+    {
+      target = document.getElementById(targetName);
+
+      target.style.display = ( target.style.display == "block" ? "none" : "block" );
+
+      buttonLabel = document.getElementById("hider").value;
+      document.getElementById("hider").value = ( document.getElementById("hider").value == "Reveal" ? "Hide" : "Reveal");
+    }
+
+  </script>
+
+</head>
+
+<body onload="initPage();">
+<div width="90%" padding="20px"><img src="/images/redhat.png" width="300px"/></div>
+
+<form id="emitdata" action="/emit" method="post">
+<div class="jumbotron">
+  <h1>Cloud Event Emitter</h1>
+  <b>Enter a target knative broker, Cloud Event Type and a payload:</b><br/>
+  <input type="text" id="broker" style="width:100%"/><br/>
+  <b>TYPE: </b><input type="text" id="cetype" style="width:400px"/><br>
+  <textarea id="payload" rows="10" style="width:100%"></textarea><br>
+  <input type="submit" value="Emit Cloud Event"/>
+  <input type="text" id="status" style="width:100%" onFocus="this.blur();"/>
+</div>  
+</form>
+
+</body>
+</html>

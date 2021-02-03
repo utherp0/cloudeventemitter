@@ -1,0 +1,31 @@
+{
+  "name": "cloudeventemitter",
+  "version": "0.0.1",
+  "description": "Simple node.js app for emitting cloud events on OpenShift",
+  "main": "server.js",
+  "dependencies": {
+    "express": "*",
+    "ejs": "*",
+    "got": "*",
+    "mysql": "*",
+    "cloudevents": "*",
+    "axios": "*"
+  },
+  "engine": {
+    "node": "*",
+    "npm": "*"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/utherp0/cloudeventemitter"
+  },
+  "author": "Ian 'Uther' Lawson",
+  "license": "",
+  "bugs": {
+    "url": "http://github.com/utherp0/cloudeventemitter/issues"
+  },
+  "homepage": "http://github.com/utherp0/cloudeventemitter"
+}
