@@ -4,6 +4,7 @@ var fs      = require('fs');
 var app     = express();
 var eps     = require('ejs');
 var got     = require('got');
+var bodyParser = require("body-parser");
 
 var axios   = require('axios').default;
 const { HTTP, CloudEvent } = require("cloudevents");
@@ -14,6 +15,9 @@ app.use( '/scripts', express.static('scripts'));
 app.use( '/styles', express.static('styles'));
 app.use( '/images', express.static('images'));
 
+app.use(bodyParser.url({extended: false }));
+app.use(bodyParser.json());
+
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
@@ -21,9 +25,9 @@ var ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 app.post('/emit', function (req,res)
 {
   // Extract the parameters from the request
-  var broker = req.query.broker;
-  var cetype = req.query.cetype;
-  var payload = req.query.payload;
+  var broker = req.body().broker;
+  var cetype = req.body().cetype;
+  var payload = req.body().payload;
 
   console.log( "Type: " + cetype );
   console.log( "Broker: " + broker );
