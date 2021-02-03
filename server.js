@@ -18,7 +18,7 @@ var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080;
 var ip   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 // Emit an event
-app.get('/emit', function (req,res)
+app.post('/emit', function (req,res)
 {
   // Extract the parameters from the request
   var broker = req.query.broker;
