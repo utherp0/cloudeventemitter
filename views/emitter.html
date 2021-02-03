@@ -38,7 +38,7 @@
       payload = encodeURI(payload);
 
       // Build the url encoded
-      var targetURL = "emit?broker=" + broker + "&type=" + cetype + "&payload=" + payload;
+      var targetURL = "emit?broker=" + broker + "&cetype=" + cetype + "&payload=" + payload;
 
       $.ajax({url: targetURL, success: function(result) {
         $("#status").val = "EMIT sent to server";
