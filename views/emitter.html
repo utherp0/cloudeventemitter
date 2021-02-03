@@ -23,6 +23,8 @@
 
     form.submit( function (e)
     {
+      console.log( "In submit...");
+      
       // Get and check data
       var broker = $("#broker").val();
       var cetype = $("#cetype").val();
@@ -86,7 +88,7 @@
   <input type="text" id="broker" style="width:100%"/><br/>
   <b>TYPE: </b><input type="text" id="cetype" style="width:400px"/><br>
   <textarea id="payload" rows="10" style="width:100%"></textarea><br>
-  <input type="submit" value="Emit Cloud Event"/>
+  <input type="button" value="Emit Cloud Event" onClick="document.getElementById('emitdata').submit()"/>
   <input type="text" id="status" style="width:100%" onFocus="this.blur();"/>
 </div>  
 </form>
