@@ -95,7 +95,7 @@ app.get('/test', function (req,res)
   }
   else
   {
-    var type = req.params.type;
+    var type = req.query.type;
 
     if( type == null )
     {
