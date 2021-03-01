@@ -83,6 +83,53 @@ app.get('/broker', function (req,res)
   }
 });
 
+// Test point for events on Summit Game Server
+app.get('/test', function (req,res)
+{
+  // Must have Game server ENV
+  var gameServerURL = process.env["GAMESERVERURL"];
+
+  if( gameServerURL == null )
+  {
+    res.send( "GAMESERVERURL not set as server, please add ENV to deployment");
+  }
+  else
+  {
+    var type = req.params.type;
+
+    if( type == null )
+    {
+      res.send( "type parameter not provided in URL, please re-enter");
+    }
+    else
+    {
+      switch( type )
+      {
+        case "hit":
+          target = gameServerURL + "/event/hit";
+          break;
+        case "miss":
+          target = gameServerURL + "/event/miss";
+          break;
+        case "sink":
+          target = gameServerURL + "/event/sink";
+          break;
+        case "lose":
+          target = gameServerURL + "/event/lose";
+          break;
+        case "win":
+          target = gameServerURL + "/event/win";
+          break;
+        default:
+          target = gameServerURL + "/event/hit";
+          break;
+      }
+
+      axios.post(target).then((response) => { res.send("Success");}, (error) => { res.send("Failure"); console.log(error);});
+    }
+  }
+});
+
 app.listen(port, ip);
 console.log('Server running on ' + ip + ':' + port);
 
