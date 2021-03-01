@@ -106,22 +106,22 @@ app.get('/test', function (req,res)
       switch( type )
       {
         case "hit":
-          target = gameServerURL + "/event/hit";
+          target = gameServerURL + "event/hit";
           break;
         case "miss":
-          target = gameServerURL + "/event/miss";
+          target = gameServerURL + "event/miss";
           break;
         case "sink":
-          target = gameServerURL + "/event/sink";
+          target = gameServerURL + "event/sink";
           break;
         case "lose":
-          target = gameServerURL + "/event/lose";
+          target = gameServerURL + "event/lose";
           break;
         case "win":
-          target = gameServerURL + "/event/win";
+          target = gameServerURL + "event/win";
           break;
         default:
-          target = gameServerURL + "/event/hit";
+          target = gameServerURL + "event/hit";
           break;
       }
 
