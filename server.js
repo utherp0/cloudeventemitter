@@ -125,10 +125,9 @@ app.get('/test', function (req,res)
           break;
       }
 
-      axios.post(target, {
-        headers: {
-            'Content-Type': 'text/plain'
-        }}).then((response) => { res.send("Success");}, (error) => { res.send("Failure"); console.log(error);});
+      const headers = { 'Content-Type':'text/plain' }
+
+      axios.post(target, {headers: headers}).then((response) => { res.send("Success");}, (error) => { res.send("Failure"); console.log(error);});
     }
   }
 });
