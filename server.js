@@ -120,6 +120,18 @@ app.get('/test', function (req,res)
         case "win":
           target = gameServerURL + "event/win";
           break;
+        case "attack":
+          target = gameServerURL + "event/send/attack";
+          break;
+        case "match-start":
+          target = gameServerURL + "event/send/match-start";
+          break;
+        case "match-end":
+          target = gameServerURL + "event/send/match-end";
+          break;
+        case "bonus":
+          target = gameServerURL + "event/send/bonus";
+          break;
         default:
           target = gameServerURL + "event/hit";
           break;
