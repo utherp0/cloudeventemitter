@@ -39,9 +39,7 @@ app.get('/emit', function (req,res)
 
   const cloudevent = new CloudEvent({
     type: cetype,
-    data: {
-      payload
-    },
+    data: JSON.parse(payload),
     source: 'cloudeventemitter'
   });
 
@@ -63,7 +61,7 @@ app.get('/emit', function (req,res)
 app.get('/', function (req, res)
 {
   console.log( "Serving request to " + req.ip);
- 
+
   res.render('emitter.html');
 });
 
